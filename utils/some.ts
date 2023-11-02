@@ -120,3 +120,19 @@ function countPairs(n: number, edges: number[][]): number {
 
 console.log(countPairs(3, [[0, 1], [0, 2], [1, 2]]))
 console.log(countPairs(9628, []))
+
+//TODO: 位运算 2525. 根据规则将箱子分类
+function categorizeBox(length: number, width: number,
+  height: number, mass: number): string {
+  const isBulky: boolean = 
+    (length >= 1e4 || width >= 1e4 || height >= 1e4) ||
+    (BigInt(length * width * height) >= BigInt(1e9))
+  const isHeavy: boolean = mass >= 100
+  const res: string = isBulky ? 
+    (isHeavy ? "Both" : "Bulky") :
+    (isHeavy ? "Heavy" : "Neither")
+  
+  return res
+};
+console.log(categorizeBox(1000, 35, 700, 100))
+console.log(categorizeBox(10000, 35, 700, 100))
