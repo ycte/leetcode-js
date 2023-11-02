@@ -136,3 +136,28 @@ function categorizeBox(length: number, width: number,
 };
 console.log(categorizeBox(1000, 35, 700, 100))
 console.log(categorizeBox(10000, 35, 700, 100))
+
+// TODO: 1726. 同积元组
+// FIXME: Map.get error handler
+function tupleSameProduct(nums: number[]): number {
+  const multiplyMap = new Map<number, number>()
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      const product = nums[i] * nums[j]
+      // FIXME: Map.get error handler
+      multiplyMap.set(product,
+        (multiplyMap.get(product) || 0) + 1)
+    } 
+  }
+  console.log(multiplyMap)
+  let res = 0
+  for (const [key, value] of multiplyMap) {
+    if (value > 1) {
+      // c(n-1, n) * 8
+      res += (value * (value - 1)) / 2 * 8
+    }
+  }
+  return res
+}
+
+console.log(tupleSameProduct([2, 3, 4, 6]))
