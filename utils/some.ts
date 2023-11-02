@@ -161,3 +161,55 @@ function tupleSameProduct(nums: number[]): number {
 }
 
 console.log(tupleSameProduct([2, 3, 4, 6]))
+
+// TODO: 2530. 执行 K 次操作后的最大分数
+// FIXME: import in LeetCode
+import { MaxPriorityQueue } from '@datastructures-js/priority-queue'
+function maxKelements(nums: number[], k: number): number {
+  
+  const queue = new MaxPriorityQueue()
+
+  let ans = 0
+
+
+  for (let i = 0; i < nums.length; i++)
+    queue.enqueue(nums[i])
+  while (k--) {
+    let x = queue.dequeue().element
+    console.log(x)
+    queue.enqueue(Math.floor((x + 2) / 3))
+    ans += x
+  }
+  return ans
+}
+
+console.log(maxKelements([3, 2, 1, 5, 6, 4], 2))
+
+// TODO: 2652. 倍数求和
+function sumOfMultiples(n: number): number {
+  const res: number[] = []
+  for (let i = 1; i * 3 <= n; i++) res.push(i * 3)
+  for (let i = 1; i * 5 <= n; i++) 
+    if (i * 5 % 3 !== 0) res.push(i * 5)
+  for (let i = 1; i * 7 <= n; i++) 
+    if (i * 7 % 3 !== 0 && i * 7 % 5 !== 0)
+      res.push(i * 7)
+  
+  console.log(res)
+  let ans = 0
+  for (const num of res) 
+    ans += num
+  return ans
+}
+
+console.log("sumOfMultiples(10)", sumOfMultiples(10))
+console.log("sumOfMultiples(7)", sumOfMultiples(7))
+
+function sumOfMultiplesMath(n: number): number {
+  function s(m: number) {
+    return Math.floor(n / m) * (Math.floor(n / m) + 1) / 2 * m;
+  }
+  return s(3) + s(5) + s(7) - s(15) - s(21) - s(35) + s(105)
+}
+
+console.log("sumOfMultiplesMath(10)", sumOfMultiplesMath(10))

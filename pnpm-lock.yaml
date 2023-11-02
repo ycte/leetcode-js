@@ -17,6 +17,9 @@ importers:
       '@antfu/utils':
         specifier: ^0.7.6
         version: 0.7.6
+      '@datastructures-js/priority-queue':
+        specifier: 5.3.0
+        version: 5.3.0
       '@types/node':
         specifier: ^20.8.3
         version: 20.8.3
@@ -315,6 +318,16 @@ packages:
       '@babel/helper-string-parser': 7.22.5
       '@babel/helper-validator-identifier': 7.22.5
       to-fast-properties: 2.0.0
+    dev: true
+
+  /@datastructures-js/heap@3.2.0:
+    resolution: {integrity: sha512-FcU5ZAyb+VIOZz1HABsJUsbJi2ZyUDO7aoe97hq4d3tK3z8nMgwdxf5bO0gafR0ExFi18YTspntqHLzt4XOgnA==}
+    dev: true
+
+  /@datastructures-js/priority-queue@5.3.0:
+    resolution: {integrity: sha512-0Dl0UooE9Uzz85qBP46HTjQHS5GN7NMNluN5/nMfxQAndG/1eNBJpBntLGT5QJarvMO3poLNBJzA3S4GPajp+w==}
+    dependencies:
+      '@datastructures-js/heap': 3.2.0
     dev: true
 
   /@es-joy/jsdoccomment@0.40.1:
