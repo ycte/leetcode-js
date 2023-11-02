@@ -161,3 +161,26 @@ function tupleSameProduct(nums: number[]): number {
 }
 
 console.log(tupleSameProduct([2, 3, 4, 6]))
+
+// TODO: 2530. 执行 K 次操作后的最大分数
+// FIXME: import in LeetCode
+import { MaxPriorityQueue } from '@datastructures-js/priority-queue'
+function maxKelements(nums: number[], k: number): number {
+  
+  const queue = new MaxPriorityQueue()
+
+  let ans = 0
+
+
+  for (let i = 0; i < nums.length; i++)
+    queue.enqueue(nums[i])
+  while (k--) {
+    let x = queue.dequeue().element
+    console.log(x)
+    queue.enqueue(Math.floor((x + 2) / 3))
+    ans += x
+  }
+  return ans
+}
+
+console.log(maxKelements([3, 2, 1, 5, 6, 4], 2))
