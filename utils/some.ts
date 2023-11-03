@@ -213,3 +213,75 @@ function sumOfMultiplesMath(n: number): number {
 }
 
 console.log("sumOfMultiplesMath(10)", sumOfMultiplesMath(10))
+
+// TODO: 136. 只出现一次的数字
+// FIXME: for-of 空间使用大于 for
+function singleNumber(nums: number[]): number {
+  let res: number = 0
+  for (let i: number = 0; i < nums.length; i++) {
+    res ^= nums[i]
+  }
+  return res
+}
+
+function singleNumberForof(nums: number[]): number {
+  let res: number = 0
+  for (const num of nums) {
+    res ^= num
+  }
+  return res
+}
+
+function singleNumberReduce(nums: number[]): number {
+  return nums.reduce((a, b) => a ^ b)
+}
+
+console.log("singleNumber([2, 2, 1])", singleNumber([2, 2, 1]))
+console.log("singleNumberForof([2, 2, 1])", singleNumberForof([2, 2, 1]))
+console.log("singleNumberReduce([2, 2, 1])", singleNumberReduce([2, 2, 1]))
+
+// TODO: 137. 只出现一次的数字 II
+// FIXME: https://leetcode.cn/problems/single-number-ii/solutions/2482832/dai-ni-yi-bu-bu-tui-dao-chu-wei-yun-suan-wnwy/?envType=daily-question&envId=2023-10-30
+function singleNumber2(nums: number[]): number {
+  let res: number = 0
+  for (let i = 0; i < 32; i++) {
+    let sum: number = 0
+    for (let j = 0; j < nums.length; j++) {
+      sum += (nums[j] >> i) & 1
+    }
+    if (sum % 3 === 1) {
+      res |= 1 << i
+    }
+  }
+  return res
+}
+console.log(singleNumber2([0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5]))
+
+// TODO: 260. 只出现一次的数字 III
+// FIXME:TODO: proable variable name 
+function singleNumber3(nums: number[]): number[] {
+  // 异或结果，两个数不一样的位为 1
+  let exclusiveOr: number = 0
+  nums.forEach(
+    (item: number) => {
+      exclusiveOr ^= item
+    }
+  )
+  
+  // 利用第一个不一样的位为 1，将数组分为两组，两组分别异或，得到两组中不同的数
+  let seletor: number = exclusiveOr & -exclusiveOr
+  let res0: number = 0
+  nums.forEach(
+    (item: number) => {
+      if ((item & seletor) === 0) {
+        res0 ^= item
+      }
+    }
+  )
+
+  return [res0, exclusiveOr ^ res0]
+}
+
+console.log("singleNumber3", singleNumber3([2, 2, 1, 3]))
+
+// TODO: jump from end to 1st question
