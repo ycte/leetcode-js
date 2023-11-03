@@ -283,3 +283,5 @@ function singleNumber3(nums: number[]): number[] {
 }
 
 console.log("singleNumber3", singleNumber3([2, 2, 1, 3]))
+
+// TODO: jump from end to 1st question
