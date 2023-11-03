@@ -1,6 +1,7 @@
-/* FIXME: TODO: in this file is just a note-mark
+/**
+ * FIXME: TODO: in this file is just a note-mark
  * that seperate different questions
- */
+ * FIXME:TODO: key question */ 
 
 // TODO: 2698. 求一个整数的惩罚数
 function punishmentNumber(n: number): number {
