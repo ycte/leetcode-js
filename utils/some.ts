@@ -256,3 +256,30 @@ function singleNumber2(nums: number[]): number {
   return res
 }
 console.log(singleNumber2([0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5]))
+
+// TODO: 260. 只出现一次的数字 III
+// FIXME:TODO: proable variable name 
+function singleNumber3(nums: number[]): number[] {
+  // 异或结果，两个数不一样的位为 1
+  let exclusiveOr: number = 0
+  nums.forEach(
+    (item: number) => {
+      exclusiveOr ^= item
+    }
+  )
+  
+  // 利用第一个不一样的位为 1，将数组分为两组，两组分别异或，得到两组中不同的数
+  let seletor: number = exclusiveOr & -exclusiveOr
+  let res0: number = 0
+  nums.forEach(
+    (item: number) => {
+      if ((item & seletor) === 0) {
+        res0 ^= item
+      }
+    }
+  )
+
+  return [res0, exclusiveOr ^ res0]
+}
+
+console.log("singleNumber3", singleNumber3([2, 2, 1, 3]))
