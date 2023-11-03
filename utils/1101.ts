@@ -47,6 +47,7 @@ function numRollsToTarget(n: number, k: number, target: number): number {
 
 console.log(numRollsToTarget(30, 30, 500))
 
+// TODO: 1102
 // TODO: 2316. 统计无向图中无法互相到达点对数
 // Floyd -- large scare of storage
 function countPairsFloyd(n: number, edges: number[][]): number {
@@ -214,6 +215,7 @@ function sumOfMultiplesMath(n: number): number {
 
 console.log("sumOfMultiplesMath(10)", sumOfMultiplesMath(10))
 
+// TODO: 1103
 // TODO: 136. 只出现一次的数字
 // FIXME: for-of 空间使用大于 for
 function singleNumber(nums: number[]): number {

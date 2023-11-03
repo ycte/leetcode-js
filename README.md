@@ -1,6 +1,7 @@
 # leetcode-js
 
 > Leetcode solution in JavaScript
+> Tips: use search engine in Vscode to jump to specific question
 
 ## License
 
