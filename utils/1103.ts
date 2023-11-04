@@ -151,3 +151,42 @@ function unequalTriplets(nums: number[]): number {
 console.log(unequalTriplets([1, 1, 1, 1, 1]))
 console.log(unequalTriplets([4, 4, 2, 4, 3]))
 console.log(unequalTriplets([1, 3, 1, 2, 4]))
+
+// TODO: 1375. 二进制字符串前缀一致的次数
+// FIXME: SB
+function numTimesAllBlue(flips: number[]): number {
+  // init
+  // console.log("flips", flips)
+  let n: number = flips.length
+  let ans: number = 0
+  let binary: number[] = []
+  
+  let flipsMap: Map<number, number> = new Map()
+  for (let i: number = 0; i < n; i++) {
+    binary[i] = 0
+  }
+
+  for (let i: number = 0; i < n; i++) {
+    // no.i step
+    let flag: boolean = true
+    binary[flips[i]-1] = 1
+  
+    for (let j: number = 0; j <= i; j++) 
+      if (binary[j] === 0) {
+        // console.log(i, flips[i], binary)
+        flag = false
+        break
+      }
+    for (let j: number = i + 1; j < n; j++)
+      if (binary[j] === 1) {
+        // console.log(i, flips[i], binary)
+        flag = false
+        break
+      }
+    if (flag) ans++
+  }
+
+  return ans
+}
+
+console.log(numTimesAllBlue([3,2,4,1,5]))
