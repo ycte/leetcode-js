@@ -106,3 +106,48 @@ newListNode.next.next.next = new ListNode(-3)
 newListNode.next.next.next.next = new ListNode(-2)
 console.log("removeZeroSumSublists",
   removeZeroSumSublists(newListNode))
+
+// TODO: 2475. 数组中不等三元组的数目
+// FIXME: 整体视野
+function unequalTripletsMap(nums: number[]): number {
+  let map: Map<number, number> = new Map()
+  nums.map((num) =>
+    map.set(num, (map.get(num) || 0) + 1)
+  )
+
+  let count: number = 0
+  let ans: number = 0
+  map.forEach((value) => count += 1)
+  map.forEach(
+    (value, key) => {
+      map.forEach((value2, key2) => {
+        if (key < key2) {
+          map.forEach((value3, key3) => {
+            if (key2 < key3) {
+              ans += value * value2 * value3
+            }
+          })
+        }
+      })
+    })
+  return count < 3 ? 0 : ans
+}
+function unequalTriplets(nums: number[]): number {
+  nums.sort((a, b) => a - b)
+  let ans: number = 0
+  let start: number = 0
+  for (let i = 0; i < nums.length - 1; i++) {
+    const x = nums[i]
+    if (x !== nums[i + 1]) {
+      ans += start * (i - start + 1) *
+        (nums.length - i - 1) 
+      start = i + 1
+    }
+  }
+  return ans
+}
+
+
+console.log(unequalTriplets([1, 1, 1, 1, 1]))
+console.log(unequalTriplets([4, 4, 2, 4, 3]))
+console.log(unequalTriplets([1, 3, 1, 2, 4]))
