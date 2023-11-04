@@ -63,3 +63,46 @@ function numSmallerByFrequency(queries: string[], words: string[]): number[] {
 }
 console.log(numSmallerByFrequency(["xxyyxx", "xxxyxx"],
   ["xxaaax", "aabaaaa", "xyx", "xxaaxaxx"]))
+
+// TODO: 1104
+// TODO: 1171. 从链表中删去总和值为零的连续节dian
+// Definition for singly-linked list.
+class ListNode {
+  val: number
+  next: ListNode | null
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = (val === undefined ? 0 : val)
+    this.next = (next === undefined ? null : next)
+  }
+}
+function removeZeroSumSublists(head: ListNode | null): ListNode | null {
+  let dummyHead: ListNode = new ListNode(0)
+  dummyHead.next = head
+  // console.log("dummyHead", dummyHead)
+  let prefix: number = 0
+  let seen: Map<number, ListNode> = new Map()
+
+  for (let curr: ListNode | null = dummyHead; curr !== null;
+    curr = curr.next) {
+    
+    prefix += curr.val
+    seen.set(prefix, curr)
+  }
+  prefix = 0
+  for (let curr: ListNode | null = dummyHead; curr !== null;
+    curr = curr.next) {
+    prefix += curr.val
+    // console.log("curr", curr)
+    curr.next = seen.get(prefix)?.next || null
+    // console.log(prefix, seen.get(prefix), curr.val, curr.next?.val)
+  }
+  return dummyHead.next
+}
+
+const newListNode: ListNode = new ListNode(1)
+newListNode.next = new ListNode(2)
+newListNode.next.next = new ListNode(3)
+newListNode.next.next.next = new ListNode(-3)
+newListNode.next.next.next.next = new ListNode(-2)
+console.log("removeZeroSumSublists",
+  removeZeroSumSublists(newListNode))
