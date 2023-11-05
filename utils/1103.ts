@@ -189,4 +189,91 @@ function numTimesAllBlue(flips: number[]): number {
   return ans
 }
 
-console.log(numTimesAllBlue([3,2,4,1,5]))
+console.log(numTimesAllBlue([3, 2, 4, 1, 5]))
+
+// TODO: 1105
+// TODO: 1177. 构建回文串检测
+const isPalindromeTemp = (s: string, query: number[]): boolean => {
+  let start: number = query[0]
+  let end: number = query[1]
+  let str: string = s.slice(start, end + 1)
+  let len: number = str.length
+  if (len <= 1) return true
+
+  let tolerance: number = query[2]
+  let toTolerance: number = 0
+  let map: Map<string, number> = new Map()
+
+  for (const c of str) map.set(c, (map.get(c) || 0) + 1)
+  map.forEach((value) => toTolerance += value % 2)
+  console.log(str, toTolerance, tolerance, len)
+
+  return tolerance >= Math.floor(toTolerance / 2)
+}
+
+function canMakePaliQueriesTemp(s: string,
+  queries: number[][]): boolean[] {
+  let ans: boolean[] = []
+  for (const query of queries) {
+    ans.push(isPalindromeTemp(s, query))
+
+  }
+
+  return ans
+}
+
+console.log(canMakePaliQueriesTemp("abcda",
+  [[3, 3, 0], [1, 2, 0], [0, 3, 1], [0, 3, 2], [0, 4, 1]]))
+
+console.log(canMakePaliQueriesTemp("ninmjmj",
+  [[6, 6, 0], [1, 1, 1], [2, 5, 4], [1, 3, 1], [5, 6, 1]]))
+
+// TODO: 1177. 构建回文串检测
+const cntToToleranceArr = (s: string, query: number[]): number => {
+  let start: number = query[0]
+  let end: number = query[1]
+  let str: string = s.slice(start, end + 1)
+  let toTolerance: number = 0
+  let map: Map<string, number> = new Map()
+  
+  for (const c of str) map.set(c, (map.get(c) || 0) + 1)
+  map.forEach((value) => toTolerance += value % 2)
+  // console.log("str, ", start, end, str, toTolerance)
+  return toTolerance
+}
+
+const isPalindromeArr = (s: string, query: number[],
+  toToleranceArr: number[][]): boolean => {
+  let [i, j, tolerance] = query
+  // console.log("tolerance, ",
+  //   s.slice(i, j + 1), tolerance, toToleranceArr[i][j])
+  return tolerance >= Math.floor(toToleranceArr[i][j] / 2) 
+}
+
+function canMakePaliQueriesArr(s: string,
+  queries: number[][]): boolean[] {
+  let ans: boolean[] = []
+  let toToleranceArr: number[][] = []
+  let len: number = s.length
+  
+  for (let i = 0; i < len; i++) {
+    let toToleranceArrRow: number[] = []
+    for (let j = 0; j < len; j++) {
+      if (j < i) toToleranceArrRow.push(0)
+      else 
+        toToleranceArrRow.push(cntToToleranceArr(s, [i, j, 0]))
+    } 
+    toToleranceArr.push(toToleranceArrRow)
+  }
+  // console.log(toToleranceArr)
+    
+  for (const query of queries) 
+    ans.push(isPalindromeArr(s, query, toToleranceArr))
+  return ans
+}
+
+console.log(canMakePaliQueriesArr("abcda",
+  [[3, 3, 0], [1, 2, 0], [0, 3, 1], [0, 3, 2], [0, 4, 1]]))
+
+console.log(canMakePaliQueriesArr("ninmjmj",
+  [[6,6,0],[1,1,1],[2,5,4],[1,3,1],[5,6,1]]))
