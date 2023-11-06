@@ -322,3 +322,68 @@ console.log("numberOfCuts", numberOfCuts(10))
 console.log("numberOfCuts", numberOfCuts(4))
 console.log("numberOfCuts", numberOfCuts(3))
 console.log("numberOfCuts", numberOfCuts(1))
+
+// TODO: 1254. 统计封闭岛屿的数目
+// FIXME: 连通集 - connected group
+const dir: number[][] = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+function closedIsland(grid: number[][]): number {
+  const m: number = grid.length
+  const n: number = grid[0].length
+  let ans: number = 0
+
+  for (let i: number = 0; i < m; i++) 
+    for (let j: number = 0; j < n; j++) 
+      // 找到一个 0，对其进行 BFS，找它的连通区域，
+      // 找到就置 1 表示 visited，然后继续找
+      if (grid[i][j] === 0) {
+        const qu: number[][] = []
+        grid[i][j] = 1
+        let closed: boolean = true
+
+        qu.push([i, j])
+        while (qu.length) {
+          const arr: number[] = qu.shift() || [0, 0]
+          let cx: number = arr[0], cy: number = arr[1]
+          if (cx === 0 || cy === 0 ||
+            cx === m - 1 || cy === n - 1) closed = false
+          
+          for (let d: number = 0; d < 4; d++) {
+            let nx: number = cx + dir[d][0]
+            let ny: number = cy + dir[d][1]
+            if (nx >= 0 && nx < m &&
+              ny >= 0 && ny < n && grid[nx][ny] === 0) {
+              grid[nx][ny] = 1
+              qu.push([nx, ny])
+            }
+          }
+        }
+        if (closed) ans++
+      }
+    
+  return ans
+}
+
+// TODO: 1262. 可被三整除的最大和
+function maxSumDivThree(nums: number[]): number {
+  const dp: number[][] = Array
+    .from({ length: nums.length + 1 }, () => Array(3).fill(0))
+  
+  for (let i = 1; i <= nums.length; i++) {
+    let num: number = nums[i - 1]
+    for (let j = 0; j < 3; j++) {
+      // if (false)
+      if (dp[i - 1][(j - (num % 3) + 3) % 3] === 0) 
+        if (num % 3 === j) 
+          dp[i][j] = Math
+            .max(dp[i - 1][0] + num, dp[i - 1][j])
+        else dp[i][j] = dp[i - 1][j]
+      else dp[i][j] = Math
+        .max(dp[i - 1][j],
+          dp[i - 1][(j - (num % 3) + 3) % 3] + num)
+      
+    }
+    console.log(dp[i])
+  }
+  return dp[nums.length][0]
+}
+console.log(maxSumDivThree([3, 6, 5, 1, 8]))
