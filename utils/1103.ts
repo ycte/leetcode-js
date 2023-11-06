@@ -387,3 +387,17 @@ function maxSumDivThree(nums: number[]): number {
   return dp[nums.length][0]
 }
 console.log(maxSumDivThree([3, 6, 5, 1, 8]))
+
+// TODO: 2496. 数组中字符串的最大值
+function maximumValue(strs: string[]): number {
+  const values: number[] = strs.map((str) => 
+    !/[^0-9]/.test(str) ? 
+      Number.parseInt(str) :
+      str.length
+  )
+  console.log(values)
+  return Math.max(...values)
+}
+
+console.log(/[^0-9]/.test("123a"))
+console.log(maximumValue(["123", "456a", "789"]))
