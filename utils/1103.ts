@@ -308,3 +308,17 @@ var canMakePaliQueries = function (s: string, queries: number[][]) {
 
 // console.log(3^3)
 console.log(canMakePaliQueries("abcda", [[3, 3, 0]]))
+
+// TODO: 2481. 分割圆的最少切割次数
+function numberOfCuts(n: number): number {
+  // return n === 1 ? 0 : 
+  //   n % 2 === 0 ? n / 2 : n
+  if (n === 1) return 0
+  if (n % 2 === 0) return n / 2
+  return n
+}
+
+console.log("numberOfCuts", numberOfCuts(10))
+console.log("numberOfCuts", numberOfCuts(4))
+console.log("numberOfCuts", numberOfCuts(3))
+console.log("numberOfCuts", numberOfCuts(1))
